@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;    
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#header {
+    height: 8%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: purple;
+}
+
+#main-title {
+    text-align: center;
+    color: white;
+    justify-self: center;
+    padding: 10px;
+}
+
+#play {
+    height: 30px;
+    width: 60px;
+    background-color: black;
+    color: white;
+    justify-self: end;
+}
+
+#bike-character {
+    width: 400px;
+    height: 160px;
+    background-image: url("../Images/Velo3.png");
+    background-position-x: left;
+    background-position-y: bottom;
+    background-repeat: no-repeat;
+}
+
+.pedestrian {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 130px;
+    height: 130px;
+    background-image: url("../Images/Pieton6.png");
+    background-repeat: no-repeat;
+}
+
+.car {
+    position: absolute;
+    top: 0;
+    left: 100px;
+    width: 170px;
+    height: 50px;
+    align-self: flex-start;
+    background-image: url("../Images/Car7.png");
+    background-repeat: no-repeat;
+}
+
+.scooter {
+    position: absolute;
+    top: 0;
+    left: 500px;
+    width: 130px;
+    height: 130px;
+    align-self: flex-start;
+    justify-self: start;
+    background-image: url("../Images/Scoot6.png");
+    background-repeat: no-repeat;
+}
+
+#main-content {
+    display: flex;
+    align-items: flex-end;
+    height: 85%;
+    width: 90%;
+    margin: 20px auto;
+    border: 2px solid black;
+    background-image: url("../Images/game-background2.jpg");
+}
+
+.move {
+    transform: translateY(120vh);
+}
+
+.obstacle {
+    visibility: hidden;
+}
