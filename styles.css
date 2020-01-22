@@ -21,8 +21,8 @@ html, body {
 #main-title {
     text-align: center;
     color: white;
-    justify-self: center;
     padding: 10px;
+    justify-self: center;
 }
 
 #play {
@@ -30,10 +30,16 @@ html, body {
     width: 60px;
     background-color: black;
     color: white;
-    justify-self: end;
+    margin-left: 30px;
+    padding: 0 15px;
+    justify-self: flex-end;
+    border-style: none;
+    border-radius: 25%;
+
 }
 
 #bike-character {
+    align-self: flex-end;
     width: 118px;
     height: 98px;
     background-image: url("../Images/Velo12.png");
@@ -43,9 +49,8 @@ html, body {
 }
 
 .pedestrian {
-    position: absolute;
-    top: 0;
-    right: 180px;
+    align-self: flex-start;
+    margin: 0 15px;
     width: 42px;
     height: 97px;
     background-image: url("../Images/Pieton6.png");
@@ -53,9 +58,9 @@ html, body {
 }
 
 .car {
-    position: absolute;
-    top: 0;
-    left: 100px;
+    align-self: flex-start;
+    justify-self: flex-start;
+    margin: 0 15px;
     width: 81px;
     height: 32px;
     align-self: flex-start;
@@ -64,9 +69,8 @@ html, body {
 }
 
 .scooter {
-    position: absolute;
-    top: 0;
-    left: 500px;
+    align-self: flex-start;
+    margin: 0 15px;
     width: 65px;
     height: 94px;
     align-self: flex-start;
@@ -77,18 +81,25 @@ html, body {
 
 #main-content {
     display: flex;
-    align-items: flex-end;
+    /* flex-direction: row; */
+    /* align-items: flex-end; */
     height: 85%;
     width: 90%;
     margin: 20px auto;
     border: 2px solid black;
     background-image: url("../Images/game-background2.jpg");
+    overflow: hidden;
 }
 
 .move {
     transform: translateY(120vh);
 }
 
-.obstacle {
+.hidden {
     visibility: hidden;
+}
+
+.horizontal {
+    display: flex;
+    flex-direction: row;
 }

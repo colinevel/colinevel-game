@@ -77,7 +77,8 @@ class Cars extends Obstacles {
     this.element.style.transform = `translateY(${this.y}px`;
     }
     else  {
-      this.element.classList = "obstacle";
+      this.y = -100;
+      // this.element.classList.add("hidden")
     } 
   }
   // movedownwards() {
@@ -103,7 +104,8 @@ class Pedestrians extends Obstacles {
       this.element.style.transform = `translateY(${this.y}px`;
       }
       else  {
-        this.element.classList = "obstacle";
+        this.y = -100;
+        // this.element.classList.add("hidden")
       } 
 }
 }
@@ -125,24 +127,25 @@ class Scooters extends Obstacles {
       this.element.style.transform = `translateY(${this.y}px`;
       }
       else  {
-        this.element.classList = "obstacle";
+        this.y = -100;
+        // this.element.classList.add("hidden")
       } 
 }
 }
 
 var CarsList = [];
-for (let i = 0; i < 2; i++) {
-  CarsList.push(new Cars(random(0, 20), 0));
+for (let i = 0; i < 3; i++) {
+  CarsList.push(new Cars(random(10, 100), 0));
 }
 
 var PedestriansList = [];
-for (let i = 0; i < 2; i++) {
-  PedestriansList.push(new Pedestrians(random(20, 30), 0));
+for (let i = 0; i < 3; i++) {
+  PedestriansList.push(new Pedestrians(random(10, 100), 0));
 }
 
 var ScootersList = [];
-for (let i = 0; i < 2; i++) {
-  ScootersList.push(new Scooters(random(30, 40), 0));
+for (let i = 0; i < 3; i++) {
+  ScootersList.push(new Scooters(random(10, 100), 0));
 }
 
 var fullList = [];
@@ -190,7 +193,6 @@ function collisionDetection() {
       rect1.x + rect1.width > rect2.x &&
       rect1.y < rect2.y + rect2.height &&
       rect1.height + rect1.y > rect2.y) {
-      console.log("youpi")
       alert("YOU GOT HIT BY TRAFFIC!! TRY AGAIN");
       document.location.reload();
       clearInterval(interval);
@@ -199,7 +201,37 @@ function collisionDetection() {
 }
 
 
-// PART 4 LAUNCH OF GAME
+// PART 5 CONTINUOUS FALLING ITEMS
+function newFallingObjects(callback) {
+  setInterval(getrandomcharacters, 3000);
+  callback
+}
+
+
+
+// PART 4 TIMER
+
+// var myVar = setInterval(myTimer, 1000);
+
+// function myTimer() {
+//   var timeLeft = 30;
+//   for (let i=0 ; i<timeLeft ; i++){
+//   timeLeft -= 1;
+//   document.getElementById("timer").innerHTML = timeLeft;
+//   }
+// }
+
+// function myStopFunction() {
+//   clearInterval(myVar);
+// }
+
+
+
+
+// PART 5 LAUNCH OF GAME
+
+start_btn.onclick = function start() {
+}
 
 const draw = () => {
   updateCharacter(bike, player);
@@ -215,16 +247,13 @@ const draw = () => {
     if (char.element.className == "scooter") {char.update();}
   })
   collisionDetection();
+  newFallingObjects();
   requestAnimationFrame(draw);
 }
 
 requestAnimationFrame(draw);
 
-// start_btn.onclick = draw;
 
-// function start() {
-
-// }
 
 
 // function setBG(){
