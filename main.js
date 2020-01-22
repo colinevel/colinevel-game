@@ -37,9 +37,9 @@ function updateCharacter(bike, player) {
 
 //PART 2 : FALLING OBJECTS
 
-const pedestrian = document.getElementById("pedestrian");
-const car = document.getElementById("car");
-const scooter = document.getElementById("scooter");
+const pedestrian = document.querySelectorAll(".pedestrian");
+const car = document.querySelectorAll(".car");
+const scooter = document.querySelectorAll(".scooter");
 const start_btn = document.getElementById("play");
 
 
@@ -73,9 +73,13 @@ class Cars extends Obstacles {
   }
 
   update() {
-    this.movedownwards()
+    if (this.y < 700 ) {this.movedownwards();
     this.element.style.transform = `translateY(${this.y}px`;
     }
+    else  {
+      this.element.classList = "obstacle";
+    } 
+  }
   // movedownwards() {
   //   super.movedownwards();
   //   console.log("youhou je continue et modifie le comportement de la fonction héritée  !!")
@@ -91,16 +95,17 @@ class Pedestrians extends Obstacles {
     this.element.style.transform = `translateX(${this.x}px)`;
     this.element.style.transform = `translateY(${this.y}px)`;
     mainContent.appendChild(this.element);
-    console.log(this.element);
+    // console.log(this.element);
   }
 
   update() {
-    this.movedownwards()
-    this.element.style.transform = `translateY(${this.y}px`;}
-//   movedownwards() {
-//     super.this.movedownwards();
-//   }
-// }
+    if (this.y < 650 ) {this.movedownwards();
+      this.element.style.transform = `translateY(${this.y}px`;
+      }
+      else  {
+        this.element.classList = "obstacle";
+      } 
+}
 }
 
 class Scooters extends Obstacles {
@@ -113,15 +118,16 @@ class Scooters extends Obstacles {
     this.element.style.transform = `translateX(${this.x}px)`;
     this.element.style.transform = `translateY(${this.y}px)`;
     mainContent.appendChild(this.element);
-    console.log(this.element);
+    // console.log(this.element);
   }
   update() {
-    this.movedownwards()
-    this.element.style.transform = `translateY(${this.y}px`;
-  }
-  // movedownwards() {
-  //   super.this.movedownwards();
-  // }
+    if (this.y < 650 ) {this.movedownwards();
+      this.element.style.transform = `translateY(${this.y}px`;
+      }
+      else  {
+        this.element.classList = "obstacle";
+      } 
+}
 }
 
 var CarsList = [];
@@ -152,6 +158,49 @@ function getrandomcharacters() {
   return result;
 }
 
+// PART 3 COLLISION
+
+var bikeSize = {
+  width: 181,
+  height: 154,
+};
+
+const scooterSize = {
+  width: 68,
+  height: 95
+};
+
+const pedestrianSize = {
+  width: 41,
+  height: 95
+};
+
+const carSize = {
+  width: 79,
+  height: 37
+};
+
+function collisionDetection() {
+  const rect1 = bike.getBoundingClientRect();
+  
+  for (let i = 0; i < fullList.length; i++) {
+    // const currentObstacleMetrics = fullList[i].element.getBoundingClientRect();
+    const rect2 = fullList[i].element.getBoundingClientRect();
+    if (rect1.x < rect2.x + rect2.width &&
+      rect1.x + rect1.width > rect2.x &&
+      rect1.y < rect2.y + rect2.height &&
+      rect1.height + rect1.y > rect2.y) {
+      console.log("youpi")
+      alert("YOU GOT HIT BY TRAFFIC!! TRY AGAIN");
+      document.location.reload();
+      clearInterval(interval);
+   }
+  }
+}
+
+
+// PART 4 LAUNCH OF GAME
+
 const draw = () => {
   updateCharacter(bike, player);
 
@@ -165,6 +214,7 @@ const draw = () => {
     };
     if (char.element.className == "scooter") {char.update();}
   })
+  collisionDetection();
   requestAnimationFrame(draw);
 }
 

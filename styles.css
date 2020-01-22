@@ -34,9 +34,9 @@ html, body {
 }
 
 #bike-character {
-    width: 400px;
-    height: 160px;
-    background-image: url("../Images/Velo3.png");
+    width: 118px;
+    height: 98px;
+    background-image: url("../Images/Velo12.png");
     background-position-x: left;
     background-position-y: bottom;
     background-repeat: no-repeat;
@@ -45,9 +45,9 @@ html, body {
 .pedestrian {
     position: absolute;
     top: 0;
-    right: 0;
-    width: 130px;
-    height: 130px;
+    right: 180px;
+    width: 42px;
+    height: 97px;
     background-image: url("../Images/Pieton6.png");
     background-repeat: no-repeat;
 }
@@ -56,8 +56,8 @@ html, body {
     position: absolute;
     top: 0;
     left: 100px;
-    width: 170px;
-    height: 50px;
+    width: 81px;
+    height: 32px;
     align-self: flex-start;
     background-image: url("../Images/Car7.png");
     background-repeat: no-repeat;
@@ -67,8 +67,8 @@ html, body {
     position: absolute;
     top: 0;
     left: 500px;
-    width: 130px;
-    height: 130px;
+    width: 65px;
+    height: 94px;
     align-self: flex-start;
     justify-self: start;
     background-image: url("../Images/Scoot6.png");
