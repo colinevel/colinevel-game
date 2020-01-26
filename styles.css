@@ -14,12 +14,13 @@ html, body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background-color: purple;
 }
 
 #main-title {
     text-align: center;
+    font-size: 42px;
     color: white;
     padding: 10px;
     justify-self: center;
@@ -28,13 +29,14 @@ html, body {
 #play {
     height: 30px;
     width: 60px;
+    font-size: 16px;
     background-color: black;
     color: white;
     margin-left: 30px;
     padding: 0 15px;
     justify-self: flex-end;
     border-style: none;
-    border-radius: 25%;
+    border-radius: 35%;
 
 }
 
@@ -79,10 +81,9 @@ html, body {
     background-repeat: no-repeat;
 }
 
+
 #main-content {
     display: flex;
-    /* flex-direction: row; */
-    /* align-items: flex-end; */
     height: 85%;
     width: 90%;
     margin: 20px auto;
@@ -103,3 +104,47 @@ html, body {
     display: flex;
     flex-direction: row;
 }
+
+#timer {
+    border: none;
+    width: 150px;
+    height: 30px;
+    margin-right: 30px;
+}
+
+.winning {
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    font-size: 24px;
+    border: 6px solid black;
+    width: 600px;
+    height: 60px;
+    background-color: purple;
+    color: white;
+}
+
+#audio {
+    position: absolute;
+    left: 0;
+}
+
+.fa-window-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.3em;
+    margin-top: 2px;
+    margin-right: 2px;
+}
+
+#rules_about_container {
+    display: flex;
+    flex-direction: row;
+}
+
+#rules, #about {
+margin: 10px;
+}
+
+

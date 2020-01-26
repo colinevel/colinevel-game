@@ -1,3 +1,5 @@
+var running = false;
+
 //PART 1 : BIKE MOVING
 const bike = document.getElementById("bike-character");
 const mainContent = document.getElementById("main-content");
@@ -47,6 +49,46 @@ function random(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
+// checker si ce nb aleatoire est deja dans les x
+// array de x 
+// si ce x est contenu dans l'array, regenere un new x
+
+// var previous;
+
+// function generateXvalue(max, min, previous) {
+//   var newX = Math.round(Math.random() * (max - min) + min);
+//   if (newX === previous) {  
+//     return Math.round(Math.random() * (max - min) + min)
+//   } 
+//   return newX;
+// }
+
+// var xArray = [2,3];
+// ​
+// function getRandomArbitrary(min, max) {
+//   return Math.round(Math.random() * (max - min) + min);
+// }
+// ​
+// function getNewCoordinates() {
+//   var newX
+//   do {
+//     newX = getRandomArbitrary(5,0)
+//   } while (xArray.includes(newX))
+//   xArray.push(newX);
+// }
+
+  // do {
+  // var newX = Number(Math.round(Math.random() * (max - min) + min));
+  // console.log("la:",newX);
+  // previousX = newX
+  // // console.log("ici:",newX);
+  // }
+  // while (previousX !== newX);
+// }
+
+// generateXvalue(5, 0, 0);
+// generateXvalue(5,0,generateXvalue(5, 0, 0))
+
 
 class Obstacles {
   constructor(x, y) {
@@ -64,7 +106,7 @@ class Cars extends Obstacles {
     super(x, y);
     // console.log("x, y");
     // console.log(x, y);
-    
+
     this.element = document.createElement("div");
     this.element.className = "car";
     this.element.style.transform = `translate(${this.x}px,${this.y}px)`;
@@ -73,18 +115,17 @@ class Cars extends Obstacles {
   }
 
   update() {
-    if (this.y < 700 ) {this.movedownwards();
-    this.element.style.transform = `translateY(${this.y}px`;
-    }
-    else  {
+    if (this.y < 700) {
+      this.movedownwards();
+      this.element.style.transform = `translateY(${this.y}px`;
+    } else {
       this.y = -100;
       // this.element.classList.add("hidden")
-    } 
+    }
   }
-  // movedownwards() {
-  //   super.movedownwards();
-  //   console.log("youhou je continue et modifie le comportement de la fonction héritée  !!")
-  // }
+  movedownwards() {
+    this.y += 3.5;
+  }
 }
 
 class Pedestrians extends Obstacles {
@@ -100,14 +141,17 @@ class Pedestrians extends Obstacles {
   }
 
   update() {
-    if (this.y < 650 ) {this.movedownwards();
+    if (this.y < 650) {
+      this.movedownwards();
       this.element.style.transform = `translateY(${this.y}px`;
-      }
-      else  {
-        this.y = -100;
-        // this.element.classList.add("hidden")
-      } 
-}
+    } else {
+      this.y = -100;
+      // this.element.classList.add("hidden")
+    }
+  }
+  movedownwards() {
+    this.y += 1;
+  }
 }
 
 class Scooters extends Obstacles {
@@ -123,14 +167,17 @@ class Scooters extends Obstacles {
     // console.log(this.element);
   }
   update() {
-    if (this.y < 650 ) {this.movedownwards();
+    if (this.y < 650) {
+      this.movedownwards();
       this.element.style.transform = `translateY(${this.y}px`;
-      }
-      else  {
-        this.y = -100;
-        // this.element.classList.add("hidden")
-      } 
-}
+    } else {
+      this.y = -100;
+      // this.element.classList.add("hidden")
+    }
+  }
+  movedownwards() {
+    this.y += 2.5;
+  }
 }
 
 var CarsList = [];
@@ -155,37 +202,17 @@ fullList = CarsList.concat(PedestriansList, ScootersList);
 
 function getrandomcharacters() {
   var result = [];
-  for ( let i = 0; i < fullList.length; i++ ) {
-    result.push(fullList[Math.floor(Math.random()*fullList.length)]);
+  for (let i = 0; i < fullList.length; i++) {
+    result.push(fullList[Math.floor(Math.random() * fullList.length)]);
   }
   return result;
 }
 
 // PART 3 COLLISION
 
-var bikeSize = {
-  width: 181,
-  height: 154,
-};
-
-const scooterSize = {
-  width: 68,
-  height: 95
-};
-
-const pedestrianSize = {
-  width: 41,
-  height: 95
-};
-
-const carSize = {
-  width: 79,
-  height: 37
-};
-
 function collisionDetection() {
   const rect1 = bike.getBoundingClientRect();
-  
+
   for (let i = 0; i < fullList.length; i++) {
     // const currentObstacleMetrics = fullList[i].element.getBoundingClientRect();
     const rect2 = fullList[i].element.getBoundingClientRect();
@@ -196,44 +223,37 @@ function collisionDetection() {
       alert("YOU GOT HIT BY TRAFFIC!! TRY AGAIN");
       document.location.reload();
       clearInterval(interval);
-   }
+    }
   }
 }
 
-
-// PART 5 CONTINUOUS FALLING ITEMS
-function newFallingObjects(callback) {
-  setInterval(getrandomcharacters, 3000);
-  callback
-}
-
-
-
 // PART 4 TIMER
+var currentTime;
+const time = document.getElementById("timer");
 
-// var myVar = setInterval(myTimer, 1000);
-
-// function myTimer() {
-//   var timeLeft = 30;
-//   for (let i=0 ; i<timeLeft ; i++){
-//   timeLeft -= 1;
-//   document.getElementById("timer").innerHTML = timeLeft;
-//   }
-// }
-
-// function myStopFunction() {
-//   clearInterval(myVar);
-// }
-
-
-
+var timeLeft = 31;
+function startTimer() {
+  if (timeLeft > 0) {
+  timeLeft -= 1;
+  time.innerHTML = `<h1>Timer : ${timeLeft}</h1>`;
+  }
+  else {
+    // time.textContent = "Yay you survived!";
+    var winning = document.createElement("div");
+    winning.className = "winning";
+    mainContent.appendChild(winning);
+    winning.innerHTML = `<h2>"Yay you survived a massive attack!"</h1>`;
+    // stop game
+  }
+}
 
 // PART 5 LAUNCH OF GAME
 
-start_btn.onclick = function start() {
-}
+// start_btn.onclick = function start() {
+// }
 
 const draw = () => {
+
   updateCharacter(bike, player);
 
   var randomArray = getrandomcharacters()
@@ -244,17 +264,22 @@ const draw = () => {
     if (char.element.className == "pedestrian") {
       char.update();
     };
-    if (char.element.className == "scooter") {char.update();}
+    if (char.element.className == "scooter") {
+      char.update();
+    }
   })
   collisionDetection();
-  newFallingObjects();
   requestAnimationFrame(draw);
 }
 
-requestAnimationFrame(draw);
+start_btn.onclick = function() {
+  if(running) { return }
+  running = true;
 
+  currentTime = setInterval(startTimer, 1000);
 
-
+  requestAnimationFrame(draw);
+};
 
 // function setBG(){
 //   if (Math.round(Math.random())){
@@ -271,3 +296,47 @@ requestAnimationFrame(draw);
 //       class: "obstacle",
 //       style : transform " +velocity+ "ms linear;"
 //     });
+
+
+// PART 6  RULES
+
+const rules = document.getElementById("rules");
+const about = document.getElementById("about");
+
+rules.onclick = makeRulesAppear;
+about.onclick = makeAboutAppear;
+
+
+function makeRulesAppear() {
+  var rulebox = document.createElement("div");
+  rulebox.style.backgroundColor = "purple";
+  rulebox.style.width = "300px";
+  rulebox.style.height = "180px";
+  rulebox.style.position = "absolute";
+  rulebox.style.left = "530px";
+  rulebox.style.top = "300px";
+  rulebox.style.padding = "10px";
+  rulebox.style.zIndex = 2;
+  mainContent.appendChild(rulebox);
+  rulebox.innerHTML = `<h3>Simple rule</h3><br><p>Escape the cars, scooters and pedestrians by clicking on left and right arrows. You have 45 sec to survive!!</p><i class="far fa-window-close"></i>`;
+  document.querySelector(".fa-window-close").onclick = function() {
+    rulebox.remove();
+  }
+}
+
+function makeAboutAppear() {
+  var aboutBox = document.createElement("div");
+  aboutBox.style.backgroundColor = "purple";
+  aboutBox.style.width = "300px";
+  aboutBox.style.height = "180px";
+  aboutBox.style.position = "absolute";
+  aboutBox.style.left = "530px";
+  aboutBox.style.top = "300px";
+  aboutBox.style.padding = "10px";
+  aboutBox.style.zIndex = 2;
+  mainContent.appendChild(aboutBox);
+  aboutBox.innerHTML = `<h3>About</h3><br><p>This game was created by Coline Velard.</p><br><p>Please be lenient as this is my first project in web development.</p><br><p>Credit for the song("Flying") goes to The City of Prague Philharmonic Orchestra.</p><i class="far fa-window-close"></i>`;
+  document.querySelector(".fa-window-close").onclick = function() {
+    aboutBox.remove();
+  }
+}
